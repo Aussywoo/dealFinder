@@ -1,2 +1,2 @@
 import OfferUp
-OfferUp.getData('fuck')
+OfferUp.getData('lmao')
