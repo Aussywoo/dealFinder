@@ -1,7 +1,11 @@
 import urllib3
+import List
 import json
 
-def get(itemName:str):
+itemList:list[list[str]] = []
+
+# Returns a list with all search results from OfferUp
+def get(itemName:str) -> list:
     http = urllib3.PoolManager()
 
     # Create appropriate URL
@@ -12,10 +16,12 @@ def get(itemName:str):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0'})
     data = json.loads(resp.data)
 
-    # For testing only, print out Item Name and Location of all results
+    # Adds all search results to itemList
     feedItems = data['data']['feed_items']
     for item in feedItems:
-        print(item['item']['title'] + ', ' + item['item']['location_name'])
-
-def getData(itemName:str) -> list:
-    get(itemName)
+        itemList.append([item['item']['title'], item['item']['location_name'],
+                         item['item']['post_date'],
+                         item['item']['price'],
+                         item['item']['photos'][0]['images']['detail']['url'],
+                         'OfferUp'])
+    return itemList
