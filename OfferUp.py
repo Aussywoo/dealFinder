@@ -4,15 +4,15 @@ import json
 import rest
 from listing import Listing, OfferUpListing
 
-itemList: list[Listing] = []
+item_list: list[Listing] = []
 
 
 # Returns a list with all search results from OfferUp
-def get(itemName: str, items: int = 100) -> list[Listing]:
+def get(item_name: str, items: int = 100) -> list[Listing]:
     """
     Returns a list with all search results from OfferUp
     :param items: The number of items to search for
-    :param itemName: The search term to query
+    :param item_name: The search term to query
     :return: A list of Listings from the offerup
     """
     # Create appropriate URL
@@ -23,15 +23,15 @@ def get(itemName: str, items: int = 100) -> list[Listing]:
                                                 {
                                                     'limit': str(items),
                                                     'is_shippable_only': 'true',
-                                                    'q': itemName
+                                                    'q': item_name
                                                 }).data)
 
     # Adds all search results to itemList
     feedItems = data['data']['feed_items']
     for item in feedItems:
-        itemList.append(OfferUpListing('OfferUp', item['item']['title'], item['item']['location_name'],
-                                       item['item']['post_date'],
-                                       float(item['item']['price']),
-                                       item['item']['photos'][0]['images']['detail']['url'],
-                                       'https://offerup.com/item/detail/' + item['item']['listing_id']))
-    return itemList
+        item_list.append(OfferUpListing('OfferUp', item['item']['title'], item['item']['location_name'],
+                                        item['item']['post_date'],
+                                        float(item['item']['price']),
+                                        item['item']['photos'][0]['images']['detail']['url'],
+                                        'https://offerup.com/item/detail/' + item['item']['listing_id']))
+    return item_list
