@@ -4,8 +4,8 @@ mainList = []
 
 
 # Adds a search result to the total list
-def addItem(itemName: str, location: str, price: float, date: str, imageURL: str, origin: str):
-    mainList.append([itemName, location, date, price, imageURL, origin])
+def addItem(itemName: str, location: str, price: float, date: str, imageURL: str, postURL: str, origin: str):
+    mainList.append([itemName, location, date, price, imageURL, postURL, origin])
 
 
 # Returns the list of all search results

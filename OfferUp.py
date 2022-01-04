@@ -24,8 +24,9 @@ def get(itemName: str) -> list[Listing]:
     # Adds all search results to itemList
     feedItems = data['data']['feed_items']
     for item in feedItems:
-        itemList.append(OfferupListing('Offerup', item['item']['title'], item['item']['location_name'],
+        itemList.append(OfferupListing('OfferUp', item['item']['title'], item['item']['location_name'],
                                 item['item']['post_date'],
-                                item['item']['price'],
-                                item['item']['photos'][0]['images']['detail']['url']))
+                                float(item['item']['price']),
+                                item['item']['photos'][0]['images']['detail']['url'],
+                                       'https://offerup.com/item/detail/' +  item['item']['listing_id']))
     return itemList
